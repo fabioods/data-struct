@@ -7,4 +7,5 @@ function hammingWeight(n) {
   return count;
 }
 
-console.log(hammingWeight(11)); // 1
+// 0000 1011 => 3 bits que sao 1
+console.log(hammingWeight(11)); // 3
