@@ -77,14 +77,18 @@ class LinkedList {
   }
 
   invert() {
-    let currentNode = this.head;
-    let prevNode = null;
-    let nextNode = null;
-    while (currentNode) {
-      nextNode = currentNode.next;
-      currentNode.next = prevNode;
-      currentNode.prev = nextNode;
+    let current = this.head;
+    let prev = null;
+    let next = null;
+    while (current) {
+      console.log("current ", current);
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
     }
+    this.tail = this.head;
+    this.head = prev;
   }
 }
 
@@ -94,3 +98,5 @@ list.append(20);
 list.append(30);
 list.prepend(5);
 list.print(); // 5 <-> 10 <-> 20 <-> 30 <-> null
+list.invert();
+list.print();

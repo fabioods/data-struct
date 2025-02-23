@@ -52,6 +52,26 @@ class BinaryTree {
     return this.searchNode(node.right, data);
   }
 
+  dfs(data) {
+    return this.dfsRecursive(this.root, data);
+  }
+
+  dfsRecursive(node, data) {
+    if (node) {
+      console.log(node.value);
+    }
+
+    if (node === null) {
+      return false;
+    }
+    if (node.value === data) {
+      return true;
+    }
+
+    if (this.dfsRecursive(node.left, data)) return true;
+    if (this.dfsRecursive(node.right, data)) return true;
+  }
+
   preOrder() {
     let result = [];
     this.preOrderNode(this.root, result);
@@ -93,6 +113,57 @@ class BinaryTree {
       result.push(node.value);
     }
   }
+
+  bfs(data) {
+    if (!this.root) {
+      return false;
+    }
+
+    const queue = [this.root];
+    while (queue.length > 0) {
+      let node = queue.shift();
+      console.log("node ", node.value, " q ", queue);
+      if (node.value === data) {
+        return true;
+      }
+
+      if (node.left) {
+        queue.push(node.left);
+      }
+
+      if (node.right) {
+        queue.push(node.right);
+      }
+    }
+    return false;
+  }
+
+  joinBfs() {
+    if (!this.root) {
+      return [];
+    }
+
+    const result = [];
+    const queue = [this.root];
+    result.push([this.root.value]);
+    console.log("result ", this.root.value);
+
+    while (queue.length > 0) {
+      let node = queue.shift();
+      const r = [];
+      if (node.left) {
+        r.push(node.left.value);
+        queue.push(node.left);
+      }
+
+      if (node.right) {
+        r.push(node.right.value);
+        queue.push(node.right);
+      }
+      if (r.length > 0) result.push(r);
+    }
+    return result;
+  }
 }
 
 const tree = new BinaryTree();
@@ -104,8 +175,11 @@ tree.insert(4);
 tree.insert(7);
 tree.insert(9);
 
-console.log(tree.search(3)); // true
-console.log(tree.search(10)); // false
-console.log(tree.preOrder()); // [5, 3, 1, 4, 8, 7, 9]
-console.log(tree.inOrder()); // [1,3,4,5,7,8,9]
-console.log(tree.postOrder()); // [1,4,3,7,9,8,5]
+// console.log(tree.search(3)); // true
+// console.log(tree.search(10)); // false
+// console.log(tree.preOrder()); // [5, 3, 1, 4, 8, 7, 9]
+// console.log(tree.inOrder()); // [1,3,4,5,7,8,9]
+// console.log(tree.postOrder()); // [1,4,3,7,9,8,5]
+console.log("\nBFS 7 ", tree.bfs(7));
+console.log("BFS levels ", tree.joinBfs());
+// console.log("DFS ", tree.dfs(9));

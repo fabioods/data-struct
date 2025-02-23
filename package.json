@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@datastructures-js/deque": "^1.0.5",
     "@typescript-package/queue": "^2.0.0-beta",
     "queue": "^7.0.0",
     "typescript": "^5.7.3"
